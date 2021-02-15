@@ -5,16 +5,19 @@
 d3.select('div#example1')
   .style('color', 'green');
 
-/*  TODO 1: Rainbow Colors
-  Use the D3 to change the background color of the firstDiv to vividred(#FF0018)
-  Use the D3 to change the background color of the secondDiv to Deep Saffron(#FFA52C)
-  Use the D3 to change the background color of the thirdDiv to Maximum Yellow(#FFFF41)
-  Use the D3 to change the background color of the fourthDiv to Green (#008018)
-  Use the D3 to change the background color of the fifthDiv to Blue (#0000F9)
-  Use the D3 to change the background color of the lastDiv to Philippine Violet(#86007D)
-*/
-
-// d3.select('');
+// Todo 1 - change div backgrounds
+d3.select('div#firstDiv')
+  .style('background-color', '#FF0018');
+d3.select('div#secondDiv')
+  .style('background-color', '#FFA52C');
+d3.select('div#thirdDiv')
+  .style('background-color', '#FFFF41');
+d3.select('div#fourthDiv')
+  .style('background-color', '#008018');
+d3.select('div#fifthDiv')
+  .style('background-color', '#0000F9');
+d3.select('div#lastDiv')
+  .style('background-color', '#86007D');
 
 /* 
   Example Two: 
