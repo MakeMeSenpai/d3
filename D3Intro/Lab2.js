@@ -174,7 +174,7 @@ Example 3: Drawing a Line Chart with D3
 const lineHeight = 350;
 
 // Create function to draws the line
-const lineFunction = d3.line()
+let lineFunction = d3.line()
   .x((val) => val.month * 25)
   .y((val) => lineHeight - val.sales)
   .curve(d3.curveLinear);
@@ -212,6 +212,11 @@ TODO 6:
   Draw a Line Chart like the example above.
   It should display the US Viewership numbers for episode in 'data/viewership.json'
 */
+lineFunction = d3.line()
+  .x((val) => val.Episode * 25)
+  .y((val) => lineHeight - val.USViewers)
+  .curve(d3.curveLinear);
+
 d3.json('../data/viewership.json')
   .then((data) => {
     // draw the line

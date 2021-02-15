@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-undef */
 
-/* Example 1: Drawing a Line Graph using D3 Linera Scale
+/* Example 1: Drawing a Line Graph using D3 Linear Scale
     */
 const lineHeight = 350;
 const lineWidth = 400;
@@ -53,9 +53,9 @@ d3.json('../data/monthlySales.json')
       .text((val) => val.sales)
       .attr('x', (val) => xScale(val.month))
       .attr('y', (val) => yScale(val.sales))
-      .attr('font-sizwe', '12px')
+      .attr('font-size', '12px')
       .attr('fill', '#666666')
-      .attr('text-ancchor', 'start')
+      .attr('text-anchor', 'start')
       .attr('dy', '.35em');
   });
 
@@ -63,8 +63,60 @@ d3.json('../data/monthlySales.json')
   TODO 1: Draw a Line Graph Using D3.ScaleLinear
   Load Data from '..data/viewership.json'
   x axis = Episode Number
-  y axis = US Viewrship
+  y axis = US Viewership
 */
+
+d3.json('../data/viewership.json')
+  .then((data) => {
+    // define x linear Scale
+    const xScale = d3.scaleLinear()
+      .domain([
+        d3.min(data, (d) => d.Episode),
+        d3.max(data, (d) => d.Episode),
+      ])
+      .range([0, lineWidth])
+      .nice();
+
+    // define y Linear Scale
+    const yScale = d3.scaleLinear()
+      .domain([
+        d3.min(data, (d) => d.USViewers),
+        d3.max(data, (d) => d.USViewers),
+      ])
+      .range([lineHeight, 10])
+      .nice();
+
+    // Create function to draws the line
+    const lineFunction = d3.line()
+      .x((val) => xScale(val.Episode))
+      .y((val) => yScale(val.USViewers))
+      .curve(d3.curveLinear);
+
+    // draw the line
+    d3.select('svg#line')
+      .selectAll('path')
+      .data(data)
+      .enter()
+      .append('path')
+      .attr('d', lineFunction(data))
+      .attr('stroke', 'purple')
+      .attr('stroke-width', 2)
+      .attr('fill', 'none');
+
+    // add labels
+    d3.select('svg#line')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .text((val) => val.USViewers)
+      .attr('x', (val) => xScale(val.Episode))
+      .attr('y', (val) => yScale(val.USViewers))
+      .attr('font-size', '12px')
+      .attr('fill', '#666666')
+      .attr('text-anchor', 'start')
+      .attr('dy', '.35em');
+  })
 
 /*
   Example 2: Adding Axis to the Chart with D3.js
@@ -127,9 +179,9 @@ d3.json('../data/monthlySales.json')
       .text((val) => val.sales)
       .attr('x', (val) => xScale(val.month))
       .attr('y', (val) => yScale(val.sales))
-      .attr('font-sizwe', '12px')
+      .attr('font-size', '12px')
       .attr('fill', '#666666')
-      .attr('text-ancchor', 'start')
+      .attr('text-anchor', 'start')
       .attr('dy', '.35em');
   });
 
@@ -137,7 +189,7 @@ d3.json('../data/monthlySales.json')
   TODO 2: Draw a Line Graph with Axis Using D3.
   Load Data from '..data/viewership.json'
   x axis = Episode Number
-  y axis = US Viewrship
+  y axis = US Viewership
   Use example above to guide
 */
 d3.json('../data/viewership.json');
@@ -191,7 +243,7 @@ d3.json('../data/eventDates.json')
 
 /*
   TO DO 3:
-  Create a bar grapgh with the data in '..distanceCovered.json'
+  Create a bar graph with the data in '..distanceCovered.json'
   x axis = date
   y axis = distance covered
 
@@ -204,7 +256,7 @@ d3.json('../data/distanceCovered.json')
   });
 
 /* TO DO 4: Stretch Challenge
-  Create a Bar Chart using data in '..data/viewrship.josn'
+  Create a Bar Chart using data in '..data/viewership.json'
   x axis = Episode Number
   y axis = US Viewership
 */
