@@ -21,8 +21,7 @@ d3.select('div#lastDiv')
 
 /* 
   Example Two: 
-  Use d3 to load JSON data: Load the data from file sales.json
-  Display the conference name in an element for each item.  
+  Use d3 to load JSON data: Load the data from file sales.json 
 */
 
 d3.json('../data/sales.json')
@@ -32,8 +31,13 @@ d3.json('../data/sales.json')
       .data(data)
       .enter()
       .append('div')
-      // set the text for each div
+      // set the text for each div to conference name
+      .text(n => `${n.conference_name}`)
       // add a style for each div
+      .style('color', 'white')
+      .style('background-color', 'black')
+      .style('font-size', '25px')
+      .style('margin-top', '.5em')
   })
 
 
