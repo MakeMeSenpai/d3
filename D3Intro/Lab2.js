@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 
 /*
-Example One: This example will place an svg circle in the center of the svg elelment,
+Example One: This example will place an svg circle in the center of the svg element,
 Will give it a a radius of 100 pixels and fill it with a red colour
 */
 
@@ -22,7 +22,7 @@ d3.select('svg#example1')
   .attr('cx', 150)
   .attr('cy', 150)
   .attr('r', 100)
-  .attr('fill', 'red');
+  .attr('fill', 'rgba(255, 0, 0, 0.5)');
 
 /* 
 TODO 2: Draw an SVG Lollipop chart with the following attributes:
@@ -30,7 +30,26 @@ TODO 2: Draw an SVG Lollipop chart with the following attributes:
   circle: cx=300, cy=100, r=3
   text: x=100, y=90, content="Lolliport Chart"
 */
+d3.select('svg#lollipop')
+  .append('line')
+  .attr('x1', 100)
+  .attr('y1', 100)
+  .attr('x2', 300)
+  .attr('y2', 100)
+  .attr('stroke', 'black')
+  .attr('stroke-width', 3);
 
+d3.select('svg#lollipop')
+  .append('circle')
+  .attr('cx', 300)
+  .attr('cy', 100)
+  .attr('r', 5);
+
+d3.select('svg#lollipop')
+  .append('text')
+  .attr('x', 100)
+  .attr('y', 90)
+  .text('Lillipop Chart')
 
 /*
 TODO 3: Draw an SVG Line with the following attributes:
