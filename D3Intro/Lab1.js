@@ -47,13 +47,36 @@ d3.json('../data/sales.json')
   Stretch: Make each month a different color. 
 */
 
-d3.json('../data/monthlySales.json');
+d3.json('../data/monthlySales.json')
+  .then((data) => {
+    d3.select('#monthly-sales')
+      .selectAll('div')
+      .data(data)
+      .enter()
+      .append('div')
+      .text(n => `Month ${n.month} : $${n.sales}`)
+      // add a style for each div
+      .style('color', (n, i) => `rgb(${parseInt(n.month) * 5}, ${i * 50}, ${i * 25})`)
+      .style('font-size', '25px')
+      .style('margin-top', '.5em')
+  })
 
 /* 
   Challenge:
   Display the distance data. Show the date as text and the distance as 
   the width of each element. 
-  Stretch: Format the date as "Day Month date, Year"
+  Stretch: Format the date as "Month date, Year"
 */
 
-d3.json('../data/distanceCovered.json');
+d3.json('../data/distanceCovered.json')
+  .then((data) => {
+    d3.select('#distance')
+      .selectAll('div')
+      .data(data)
+      .enter()
+      .append('div')
+      .text(n => `${n.date}`)
+      .style('text-align', 'left')
+      .style('width', n => `${parseInt(n.kilometeres) / 10}%`)
+      .style('background-color', 'red')
+  });
