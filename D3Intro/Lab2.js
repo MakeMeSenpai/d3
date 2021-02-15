@@ -201,9 +201,9 @@ d3.json('../data/monthlySales.json')
       .text((val) => val.sales)
       .attr('x', (val) => val.month * 25)
       .attr('y', (val) => lineHeight - val.sales)
-      .attr('font-sizwe', '12px')
+      .attr('font-size', '12px')
       .attr('fill', '#666666')
-      .attr('text-ancchor', 'start')
+      .attr('text-anchor', 'start')
       .attr('dy', '.35em');
   });
 
@@ -213,7 +213,32 @@ TODO 6:
   It should display the US Viewership numbers for episode in 'data/viewership.json'
 */
 d3.json('../data/viewership.json')
-  .then();
+  .then((data) => {
+    // draw the line
+    d3.select('svg#line')
+    .selectAll('path')
+    .data(data)
+    .enter()
+    .append('path')
+    .attr('d', lineFunction(data))
+    .attr('stroke', 'green')
+    .attr('stroke-width', 2)
+    .attr('fill', 'none');
+
+  // add labels
+  d3.select('svg#line')
+    .selectAll('text')
+    .data(data)
+    .enter()
+    .append('text')
+    .text((val) => val.USViewers)
+    .attr('x', (val) => val.Episode * 25)
+    .attr('y', (val) => lineHeight - val.USViewers)
+    .attr('font-size', '12px')
+    .attr('fill', '#666666')
+    .attr('text-anchor', 'start')
+    .attr('dy', '.35em');
+  });
 
 /*
   Example 4: Drawing a Scatter Plot with D3
