@@ -295,7 +295,32 @@ d3.json('../data/monthlySales.json')
 */
 
 d3.json('../data/viewership.json')
-  .then();
+    .then((data) => {
+      // draw/add the dots
+      d3.select('svg#scatter')
+        .selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr('cx', (val) => val.Episode * 25)
+        .attr('cy', (val) => plotHeight - (val.USViewers))
+        .attr('r', 5)
+        .attr('fill', '#666666');
+
+      // add labels
+      d3.select('svg#scatter')
+        .selectAll('text')
+        .data(data)
+        .enter()
+        .append('text')
+        .text((val) => showMinMax(data, 'US Viewers', val.USViewers, 'all'))
+        .attr('x', (val) => val.Episode * 25)
+        .attr('y', (val) => plotHeight - (val.USViewers))
+        .attr('font-size', '12px')
+        .attr('font-family', 'sans-serif')
+        .attr('fill', '#666666')
+        .attr('text-anchor', 'start');
+    })
 
 /*
 TODO 8 (Stretch Challenge) : Add a function that colours(fills) the dats of the scatter plot
