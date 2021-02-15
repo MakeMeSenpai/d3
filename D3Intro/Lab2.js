@@ -30,7 +30,7 @@ TODO 2: Draw an SVG Lollipop chart with the following attributes:
   circle: cx=300, cy=100, r=3
   text: x=100, y=90, content="Lolliport Chart"
 */
-d3.select('svg#charts')
+d3.select('svg#draw')
   .append('line')
   .attr('x1', 100)
   .attr('y1', 100)
@@ -39,13 +39,13 @@ d3.select('svg#charts')
   .attr('stroke', 'black')
   .attr('stroke-width', 3);
 
-d3.select('svg#charts')
+d3.select('svg#draw')
   .append('circle')
   .attr('cx', 300)
   .attr('cy', 100)
   .attr('r', 5);
 
-d3.select('svg#charts')
+d3.select('svg#draw')
   .append('text')
   .attr('x', 100)
   .attr('y', 90)
@@ -62,7 +62,7 @@ TODO 3: Draw an SVG Line with the following attributes:
     stroke-width=4
 */
 
-d3.select('svg#charts')
+d3.select('svg#draw')
   .append('line')
   .attr('x1', 100)
   .attr('y1', 100)
@@ -81,7 +81,7 @@ TODO 4: Draw an SVG Rectangle with the following attributes:
   fill=green
 */
 
-d3.select('svg#charts')
+d3.select('svg#draw')
   .append('rect')
   .attr('x', 200)
   .attr('y', 200)
@@ -143,7 +143,30 @@ TOD0 5:
   It should show the US viewership numbers for each title in 'data/viewership.json'
    */
 d3.json('../data/viewership.json')
-  .then();
+  .then((data) => {
+    d3.select('svg#chart')
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', 0)
+      .attr('height', BAR_HEIGHT)
+      .attr('y', (val, idx) => idx * BAR_SPACING)
+      .attr('width', (val, idx) => val.USViewers)
+      .attr('fill', 'green');
+
+    // Code to add the text part of the data visual - conference name and tickets sold:
+    d3.select('svg#chart')
+      .selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('x', 0)
+      .attr('y', (val, idx) => idx * BAR_SPACING + BAR_HEIGHT + TEXT_OFFSET)
+      .attr('color', 'black')
+      .attr('font-size', '18px')
+      .text((val, idx) => `${val.Title} - ${val.USViewers}`);
+  });
 
 /*
 Example 3: Drawing a Line Chart with D3
